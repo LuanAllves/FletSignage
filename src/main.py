@@ -8,7 +8,6 @@ async def main(page: ft.Page):
     page.title = "WL Signage Digital Player"
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.theme_mode = ft.ThemeMode.DARK
-    page.window.icon = os.path.abspath("assets/icon.ico")
 
     titulo = ft.Text(
         value="Signage Player",

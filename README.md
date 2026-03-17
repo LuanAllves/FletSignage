@@ -1,69 +1,95 @@
-# Fletsignage app
+# 🎬 Flet Signage Player
 
-## Run the app
+Sistema de Digital Signage desenvolvido em Python utilizando **Flet**, com foco em reprodução de mídias locais (imagens e vídeos) em loop.
 
-### uv
+---
 
-Run as a desktop app:
+## 🚀 Objetivo
 
-```bash
-uv run flet run
+Criar uma aplicação multiplataforma para exibição de conteúdos em telas, semelhante a soluções como 4YouSee, porém rodando localmente.
+
+---
+
+## 🛠️ Tecnologias
+
+* Python 3.x
+* Flet (UI moderna baseada em Flutter)
+* Pathlib (manipulação de arquivos)
+* Shutil (cópia de arquivos)
+
+---
+
+## 📂 Estrutura do Projeto
+
+```
+FletSignage/
+│                     # Ícones e arquivos estáticos
+├── src/
+│   ├── assets/
+│   └── main.py       # Código principal
+├── midias/           # (Gerado automaticamente) arquivos enviados
+├── pyproject.toml
+└── README.md
 ```
 
-Run as a web app:
+---
+
+## 📦 Funcionalidades atuais
+
+* 📁 Seleção de arquivos (File Picker)
+* 💾 Upload de mídias para pasta local
+* 📂 Criação automática da pasta `midias`
+
+---
+
+## 🚧 Em desenvolvimento
+
+* 🎞️ Player automático (imagens e vídeos)
+* 🔁 Loop de reprodução
+* 🧠 Controle de tempo por mídia
+* 📱 Layout responsivo (Mobile/Desktop)
+* 🌙 Configurações e dashboard
+
+---
+
+## ▶️ Como executar
 
 ```bash
-uv run flet run --web
+pip install flet
+flet run src/main.py
 ```
 
-For more details on running the app, refer to the [Getting Started Guide](https://docs.flet.dev/).
+---
 
-## Build the app
+## 📌 Observações
 
-### Android
+* O sistema salva as mídias em uma pasta local (`midias`)
+* Em versões futuras será utilizado `app_storage_path` para compatibilidade multiplataforma
 
-```bash
-flet build apk -v
-```
+---
 
-For more details on building and signing `.apk` or `.aab`, refer to the [Android Packaging Guide](https://docs.flet.dev/publish/android/).
+## 🧠 Roadmap
 
-### iOS
+* [ ] Listagem de mídias na interface
+* [ ] Player com autoplay
+* [ ] Suporte a vídeos
+* [ ] Configuração via JSON
+* [ ] Build para desktop
 
-```bash
-flet build ipa -v
-```
+---
 
-For more details on building and signing `.ipa`, refer to the [iOS Packaging Guide](https://docs.flet.dev/publish/ios/).
+## 🤝 Contribuição
 
-### macOS
+Sinta-se à vontade para contribuir ou sugerir melhorias.
 
-```bash
-flet build macos -v
-```
+---
 
-For more details on building macOS package, refer to the [macOS Packaging Guide](https://docs.flet.dev/publish/macos/).
+## 📄 Licença
 
-### Linux
+Este projeto está sob a licença MIT.
 
-```bash
-flet build linux -v
-```
+---
 
-For more details on building Linux package, refer to the [Linux Packaging Guide](https://docs.flet.dev/publish/linux/).
+## 👨‍💻 Autor
 
-### Windows
-
-```bash
-flet build windows -v
-```
-
-For more details on building Windows package, refer to the [Windows Packaging Guide](https://docs.flet.dev/publish/windows/).
-
-### Web
-
-```bash
-flet build web -v
-```
-
-For more details on building Web app, refer to the [Web Packaging Guide](https://docs.flet.dev/publish/web/).
+Desenvolvido por Luan Cristian 🚀
