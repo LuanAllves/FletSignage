@@ -163,5 +163,5 @@ cython_debug/
 storage/
 *.txt
 
-# Pasta Local
-/midias
+# Pasta Local (db / files / etc)
+*/data
