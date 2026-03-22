@@ -152,14 +152,20 @@ def section_properties(page:ft.Page):
                 bgcolor = ft.Colors.SURFACE_CONTAINER_LOWEST,
                 border_radius = 10,
                 border = ft.Border.all(2, ft.Colors.LIGHT_BLUE_ACCENT_400),
-                padding = 20,
+                padding = ft.Padding.only(
+                    left= 5,
+                    top = 5,
+                    bottom = 5,
+                    right = 20,
+                ),
                 content = ft.Row(
                     expand = True,
                     controls = [
                         ft.Column(
+                            visible = False,
                             expand = True,
                             controls = [
-                                ft.TextField(label="Nome do Arquivo", value="NONE"),
+                                """ft.TextField(label="Nome do Arquivo", value="NONE"),
                                 ft.Row(
                                     alignment = ft.MainAxisAlignment.SPACE_AROUND,
                                     controls = [
@@ -173,7 +179,7 @@ def section_properties(page:ft.Page):
                                 ft.TextField(label="Duracao (segundos)", value="10",),
                                 ft.Text("Validae: ", color=ft.Colors.LIGHT_BLUE_ACCENT_400, size=12),
                                 ft.TextField(label="Inicio (DD/MM/AAAA)", value="00/00/0000"),
-                                ft.TextField(label="Fim (DD/MM/AAAA)", value="00/00/0000"),
+                                ft.TextField(label="Fim (DD/MM/AAAA)", value="00/00/0000"),"""
                             ]
                         )
                     ]

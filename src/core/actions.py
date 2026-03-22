@@ -6,6 +6,7 @@ import flet as ft
 import os
 import threading
 import time
+import datetime
 
 
 movie_files = ['gif', 'mp4', 'avi', 'mkv', 'mov']
@@ -128,14 +129,48 @@ def display_file_propeties(e, page:ft.Page, name_file:str, prop_column:ft.Column
 
     page.snack_bar = ft.SnackBar(ft.Text(f"Selecionado: {name_file}"))
 
+    txt_inicio = ft.TextField(
+        label = "Inicio (DD/MM/AAAA)",
+        value = "00/00/0000",
+        expand = True,
+        focused_border_color = ft.Colors.LIGHT_BLUE_ACCENT_400,
+        border_color = ft.Colors.LIGHT_BLUE_ACCENT_400,
+    )
+    txt_fim = ft.TextField(
+        label = "Fim (DD/MM/AAAA)",
+        value = "00/00/0000",
+        expand = True,
+        focused_border_color = ft.Colors.LIGHT_BLUE_ACCENT_400,
+        border_color = ft.Colors.LIGHT_BLUE_ACCENT_400,
+    )
+    picker_inicio = configurar_calendario(page, txt_inicio)
+    picker_fim = configurar_calendario(page, txt_fim)
+
+    txt_inicio.suffix = ft.IconButton(
+        icon = ft.Icons.CALENDAR_MONTH,
+        on_click = lambda e: abrir_calendario(e, picker_inicio, page)
+    )
+    txt_fim.suffix = ft.IconButton(
+        icon = ft.Icons.CALENDAR_MONTH,
+        on_click = lambda e: abrir_calendario(e, picker_fim, page)
+    )
+
     details = ft.Row(
         expand = True,
         controls = [
             ft.Column(
+                scroll = ft.ScrollMode.ADAPTIVE,
                 expand = True,
                 controls = [
-                    ft.TextField(label="Nome do Arquivo", value=name_file, focused_border_color=ft.Colors.LIGHT_BLUE_ACCENT_400),
-                    ft.Row(
+                    ft.Divider(height=3, color='transparent'),
+                    ft.TextField(
+                        label="Nome do Arquivo", 
+                        value=name_file, 
+                        focused_border_color=ft.Colors.LIGHT_BLUE_ACCENT_400,
+                        border_color = ft.Colors.LIGHT_BLUE_ACCENT_400,
+                        multiline = True,
+                    ),
+                    ft.ResponsiveRow(
                         alignment = ft.MainAxisAlignment.SPACE_AROUND,
                         controls = [
                             ft.Text(f"Tipo: {ext.upper()}"),
@@ -145,11 +180,12 @@ def display_file_propeties(e, page:ft.Page, name_file:str, prop_column:ft.Column
                     ft.Divider(height=20, color=ft.Colors.WHITE),
                     ft.Text("Configuracao de Exibicao: ", color=ft.Colors.LIGHT_BLUE_ACCENT_400, size=17),
                     ft.Text("Duracao: ", color=ft.Colors.LIGHT_BLUE_ACCENT_400, size=12),
-                    ft.TextField(label="Duracao (segundos)", value="10", width=150, focused_border_color=ft.Colors.LIGHT_BLUE_ACCENT_400),
+                    ft.TextField(label="Duracao (segundos)", value="10", width=150, focused_border_color=ft.Colors.LIGHT_BLUE_ACCENT_400, border_color = ft.Colors.LIGHT_BLUE_ACCENT_400),
                     ft.Text("Validae: ", color=ft.Colors.LIGHT_BLUE_ACCENT_400, size=12),
-                    ft.TextField(label="Inicio (DD/MM/AAAA)", value="00/00/0000", width=250, focused_border_color=ft.Colors.LIGHT_BLUE_ACCENT_400),
-                    ft.TextField(label="Fim (DD/MM/AAAA)", value="00/00/0000", width=250, focused_border_color=ft.Colors.LIGHT_BLUE_ACCENT_400),
-                    ft.Row(
+                    txt_inicio,
+                    txt_fim,
+                    ft.Divider(color=ft.Colors.WHITE),
+                    ft.ResponsiveRow(
                         expand = True,
                         alignment = ft.MainAxisAlignment.CENTER,
                         align = ft.Alignment.BOTTOM_CENTER,
@@ -168,12 +204,35 @@ def display_file_propeties(e, page:ft.Page, name_file:str, prop_column:ft.Column
                                 on_click=lambda _: print("Deletando arquivo...")
                             )
                         ]
-                    )
+                    ),
                 ]
-            )
+            ),
         ]
     )
     prop_column.controls[2].content = details
     page.snack_bar.open = True
     prop_column.update()
     page.update()
+
+
+def configurar_calendario(page: ft.Page, target_textfield: ft.TextField):
+
+    def handle_change(e):
+        if e.control.value:
+            data_formatada = e.control.value.strftime("%d/%m/%Y/")
+            target_textfield.value = data_formatada
+            target_textfield.update()
+
+    date_picker = ft.DatePicker(
+        on_change = handle_change,
+        first_date = datetime.datetime(2024, 1, 1),
+        last_date = datetime.datetime(2030, 12, 31),
+    )
+
+    page.overlay.append(date_picker)
+    page.update()
+
+    return date_picker
+
+def abrir_calendario(e, date_picker, page):
+    page.show_dialog(date_picker)
